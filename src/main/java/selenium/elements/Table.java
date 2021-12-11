@@ -27,7 +27,7 @@ public class Table {
         if (rowNumber < 1 && rowNumber > getNumberOfRows()) {
             throw new RuntimeException(format("Row-number '%d' must be in the interval 1-%d", rowNumber, getNumberOfRows()));
         }
-        return rows.get(rowNumber - 1); //converting rowNumber to arrayindex
+        return rows.get(rowNumber - 1); //converting rowNumber to arrayIndex
     }
 
     public int getNumberOfRows() {
@@ -49,8 +49,8 @@ public class Table {
 
     public WebElement getColumn(int columnNumber) {
         if (columns.isEmpty())
-            log.error("You must select first a row before you can select a column, f.ex: Tabell().row(2).getColumn(3)");
-        return columns.get(columnNumber - 1); //converting  columnNumber to arrayindex
+            log.error("You must select first a row before you can select a column, f.ex: Table().row(2).getColumn(3)");
+        return columns.get(columnNumber - 1); //converting  columnNumber to arrayIndex
     }
 
     public int getNumberOfColumns() {

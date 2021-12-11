@@ -9,7 +9,7 @@ public class SeleniumOptions {
     }
 
     public static BrowserType stringToBrowserType(String browserType) throws IllegalArgumentException {
-        return switch (browserType.toLowerCase()) {
+        return switch (browserType) {
             case "CHROME" -> CHROME;
             case "CHROME_HEADLESS" -> CHROME_HEADLESS;
             case "FIREFOX" -> FIREFOX;

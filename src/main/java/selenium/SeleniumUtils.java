@@ -115,7 +115,7 @@ public class SeleniumUtils {
         }
     }
 
-    public static void retryingSendkeys(WebElement element, String text) {
+    public static void retryingSendKeys(WebElement element, String text) {
         int attempts = 0;
         while (attempts < 20) {
             try {
@@ -128,7 +128,7 @@ public class SeleniumUtils {
         }
     }
 
-    public static void retryingSendkeys(By locator, String text) {
+    public static void retryingSendKeys(By locator, String text) {
         int attempts = 0;
         while (attempts < 20) {
             try {
@@ -179,8 +179,8 @@ public class SeleniumUtils {
         }
     }
 
-    public static void clearInputIfNotEqual(WebElement el, String tekst) {
-        if (!el.getText().equals(tekst))
+    public static void clearInputIfNotEqual(WebElement el, String text) {
+        if (!el.getText().equals(text))
             el.clear();
     }
 

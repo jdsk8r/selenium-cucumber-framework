@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BrowserConfigImplTest {
     @Test
     @DisplayName("Test that the setup is correct for the default constructor")
-    void standardParametreEmptyConstructor() {
+    void standardParameterEmptyConstructor() {
         BrowserConfig browserConfig = new BrowserConfigImpl();
         assertThat(browserConfig.isRunningRemote()).isFalse();
         assertThat(browserConfig.getSeleniumGridAddress()).isNull();
@@ -19,7 +19,7 @@ public class BrowserConfigImplTest {
 
     @Test
     @DisplayName("Test that the setup is correct for empty builder")
-    void standardParametreEmptyBuilder() {
+    void standardParameterEmptyBuilder() {
         BrowserConfig browserConfig = BrowserConfigImpl.with().build();
         assertThat(browserConfig.isRunningRemote()).isFalse();
         assertThat(browserConfig.getSeleniumGridAddress()).isNull();
@@ -29,7 +29,7 @@ public class BrowserConfigImplTest {
 
     @Test
     @DisplayName("setSeleniumGridAddress is not set if empty")
-    void setSeleniumGridAdresse() {
+    void setSeleniumGridAddress() {
         final String blankWhitespace = " ";
         BrowserConfigImpl browserConfig = new BrowserConfigImpl();
         browserConfig.setSeleniumGridAddress(blankWhitespace);
@@ -39,7 +39,7 @@ public class BrowserConfigImplTest {
 
     @Test
     @DisplayName("setSeleniumGridAddress sets runningRemote to true if selenium grid is not empty")
-    void setSeleniumGridAdresseBuilder() {
+    void setSeleniumGridAddressBuilder() {
         final String blankWhitespace = " ";
         final String address = "address";
         BrowserConfigImpl browserConfig = BrowserConfigImpl.with().seleniumGridAddress(address).build();
@@ -57,7 +57,7 @@ public class BrowserConfigImplTest {
 
     @Test
     @DisplayName("RemoteRunning specified afterwards it sets remote running to true")
-    void setSeleniumGridAdresseBuilderOgMetode() {
+    void setSeleniumGridAddressBuilderOgMethod() {
         final String address = "address";
         BrowserConfigImpl browserConfig = BrowserConfigImpl.with().build();
         assertThat(browserConfig.isRunningRemote()).isFalse();
