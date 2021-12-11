@@ -46,6 +46,13 @@ test {
     useJUnitPlatform()
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'diego.selenium.framework'
+            version = '1.0-SNAPSHOT'
+
+            from components.java
+        }
+    }
 }
