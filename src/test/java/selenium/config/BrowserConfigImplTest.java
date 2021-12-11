@@ -13,7 +13,7 @@ public class BrowserConfigImplTest {
         BrowserConfig browserConfig = new BrowserConfigImpl();
         assertThat(browserConfig.isRunningRemote()).isFalse();
         assertThat(browserConfig.getSeleniumGridAddress()).isNull();
-        assertThat(browserConfig.getBrowserType()).isEqualTo(SeleniumOptions.BrowserType.CHROME);
+        assertThat(browserConfig.getBrowserType()).isEqualTo(BrowserType.CHROME);
         assertThat(browserConfig.isPrintBrowserLog()).isFalse();
     }
 
@@ -23,7 +23,7 @@ public class BrowserConfigImplTest {
         BrowserConfig browserConfig = BrowserConfigImpl.with().build();
         assertThat(browserConfig.isRunningRemote()).isFalse();
         assertThat(browserConfig.getSeleniumGridAddress()).isNull();
-        assertThat(browserConfig.getBrowserType()).isEqualTo(SeleniumOptions.BrowserType.CHROME);
+        assertThat(browserConfig.getBrowserType()).isEqualTo(BrowserType.CHROME);
         assertThat(browserConfig.isPrintBrowserLog()).isFalse();
     }
 

@@ -13,7 +13,7 @@ import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.config.BrowserConfig;
-import selenium.config.SeleniumOptions;
+import selenium.config.BrowserType;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -62,7 +62,7 @@ public class Browser {
         setBrowserTimeouts(DEFAULT_SCRIPT_TIMEOUT, DEFAULT_IMPLICIT_WAIT, DEFAULT_WAIT_TIMEOUT);
     }
 
-    private static void createLocalBrowser(SeleniumOptions.BrowserType browser) {
+    private static void createLocalBrowser(BrowserType browser) {
         switch (browser) {
             case CHROME -> {
                 final ChromeOptions chromeOptions = new ChromeOptions();
@@ -89,7 +89,7 @@ public class Browser {
         }
     }
 
-    private static void createExternalBrowser(SeleniumOptions.BrowserType browser, URL seleniumGridUrl) {
+    private static void createExternalBrowser(BrowserType browser, URL seleniumGridUrl) {
         useRemoteDriver = true;
         RemoteWebDriver remoteWebDriver;
         switch (browser) {

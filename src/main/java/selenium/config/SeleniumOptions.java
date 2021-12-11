@@ -1,13 +1,9 @@
 package selenium.config;
 
 import static java.lang.String.format;
-import static selenium.config.SeleniumOptions.BrowserType.*;
+import static selenium.config.BrowserType.*;
 
 public class SeleniumOptions {
-    public enum BrowserType {
-        CHROME, CHROME_HEADLESS, FIREFOX, FIREFOX_HEADLESS,
-    }
-
     public static BrowserType stringToBrowserType(String browserType) throws IllegalArgumentException {
         return switch (browserType.toUpperCase()) {
             case "CHROME" -> CHROME;

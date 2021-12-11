@@ -9,12 +9,12 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Data @Slf4j
 public class BrowserConfigImpl implements BrowserConfig {
 
-    private SeleniumOptions.BrowserType browserType;
+    private BrowserType browserType;
     private boolean printBrowserLog;
     private String seleniumGridAddress;
 
     public BrowserConfigImpl() {
-        browserType = SeleniumOptions.BrowserType.CHROME;
+        browserType = BrowserType.CHROME;
     }
 
     public void setSeleniumGridAddress(String address) {
@@ -43,12 +43,12 @@ public class BrowserConfigImpl implements BrowserConfig {
     }
 
     @Builder(builderMethodName = "with")
-    public static BrowserConfigImpl builder(SeleniumOptions.BrowserType browserType,
+    public static BrowserConfigImpl builder(BrowserType browserType,
                                             boolean printBrowserLog, String seleniumGridAddress) {
         BrowserConfigImpl config = new BrowserConfigImpl();
         config.setSeleniumGridAddress(seleniumGridAddress);
         config.setPrintBrowserLog(printBrowserLog);
-        if (browserType == null) browserType = SeleniumOptions.BrowserType.CHROME;
+        if (browserType == null) browserType = BrowserType.CHROME;
         config.setBrowserType(browserType);
         return config;
     }

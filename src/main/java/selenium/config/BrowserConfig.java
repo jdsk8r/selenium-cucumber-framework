@@ -2,7 +2,7 @@ package selenium.config;
 
 public interface BrowserConfig {
 
-    SeleniumOptions.BrowserType getBrowserType();
+    BrowserType getBrowserType();
 
     boolean isPrintBrowserLog();
 
