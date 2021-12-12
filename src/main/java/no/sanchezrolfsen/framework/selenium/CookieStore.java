@@ -1,4 +1,4 @@
-package selenium;
+package no.sanchezrolfsen.framework.selenium;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Cookie;

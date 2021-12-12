@@ -1,4 +1,4 @@
-package selenium;
+package no.sanchezrolfsen.framework.selenium;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;

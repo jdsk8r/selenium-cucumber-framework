@@ -1,4 +1,4 @@
-package selenium.elements;
+package no.sanchezrolfsen.framework.selenium.elements;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.format;
-import static selenium.Browser.Wait;
+import static no.sanchezrolfsen.framework.selenium.Browser.Wait;
 
 @Slf4j
 public class Table {

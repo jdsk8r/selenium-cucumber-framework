@@ -1,8 +1,8 @@
-package selenium;
+package no.sanchezrolfsen.framework.selenium;
 
 import io.cucumber.java.Scenario;
 import lombok.extern.slf4j.Slf4j;
-import selenium.config.BrowserConfig;
+import no.sanchezrolfsen.framework.selenium.config.BrowserConfig;
 
 import java.io.File;
 import java.time.LocalDateTime;

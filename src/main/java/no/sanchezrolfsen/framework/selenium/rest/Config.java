@@ -1,6 +1,6 @@
-package selenium.rest;
+package no.sanchezrolfsen.framework.selenium.rest;
 
-import selenium.config.BrowserConfig;
+import no.sanchezrolfsen.framework.selenium.config.BrowserConfig;
 
 import java.time.format.DateTimeFormatter;
 

@@ -1,4 +1,4 @@
-package selenium.config;
+package no.sanchezrolfsen.framework.selenium.config;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;

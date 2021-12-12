@@ -1,6 +1,8 @@
-package selenium;
+package no.sanchezrolfsen.framework.selenium;
 
 import lombok.extern.slf4j.Slf4j;
+import no.sanchezrolfsen.framework.selenium.config.BrowserConfig;
+import no.sanchezrolfsen.framework.selenium.config.BrowserType;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,8 +14,6 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import selenium.config.BrowserConfig;
-import selenium.config.BrowserType;
 
 import java.net.MalformedURLException;
 import java.net.URL;

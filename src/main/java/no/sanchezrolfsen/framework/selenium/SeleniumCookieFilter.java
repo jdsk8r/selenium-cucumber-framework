@@ -1,7 +1,7 @@
-package selenium;
+package no.sanchezrolfsen.framework.selenium;
 
 import org.openqa.selenium.Cookie;
-import selenium.rest.CookieRetriever;
+import no.sanchezrolfsen.framework.selenium.rest.CookieRetriever;
 
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;

@@ -1,7 +1,7 @@
-package selenium.config;
+package no.sanchezrolfsen.framework.selenium.config;
 
 import static java.lang.String.format;
-import static selenium.config.BrowserType.*;
+import static no.sanchezrolfsen.framework.selenium.config.BrowserType.*;
 
 public class SeleniumOptions {
     public static BrowserType stringToBrowserType(String browserType) throws IllegalArgumentException {

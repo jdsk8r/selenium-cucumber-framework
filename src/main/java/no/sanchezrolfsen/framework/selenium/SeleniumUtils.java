@@ -1,4 +1,4 @@
-package selenium;
+package no.sanchezrolfsen.framework.selenium;
 
 import com.google.common.collect.ImmutableList;
 import io.cucumber.java.Scenario;
@@ -21,10 +21,9 @@ import java.util.function.Consumer;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static selenium.Browser.Wait;
-import static selenium.Browser.globalWaitTimeout;
-import static selenium.TestUtils.doubleFromString;
-import static selenium.TestUtils.integerFromString;
+import static no.sanchezrolfsen.framework.selenium.Browser.Wait;
+import static no.sanchezrolfsen.framework.selenium.TestUtils.doubleFromString;
+import static no.sanchezrolfsen.framework.selenium.TestUtils.integerFromString;
 
 
 @Slf4j
@@ -43,11 +42,11 @@ public class SeleniumUtils {
     }
 
     public static WebElement waitForElementToBeClickable(WebElement element) {
-        return waitForElementToBeClickable(element, globalWaitTimeout);
+        return waitForElementToBeClickable(element, Browser.globalWaitTimeout);
     }
 
     public static WebElement waitForElementToBeClickable(WebElement element, long timeout) {
-        return Wait(timeout)
+        return Browser.Wait(timeout)
                 .ignoreAll(ImmutableList.of(
                         NoSuchElementException.class, JavascriptException.class,
                         StaleElementReferenceException.class))
@@ -61,11 +60,11 @@ public class SeleniumUtils {
     }
 
     public static WebElement waitFor(WebElement element) {
-        return waitFor(element, globalWaitTimeout);
+        return waitFor(element, Browser.globalWaitTimeout);
     }
 
     public static WebElement waitFor(WebElement element, long timeout) {
-        return Wait(timeout)
+        return Browser.Wait(timeout)
                 .ignoreAll(ImmutableList.of(StaleElementReferenceException.class, ElementNotVisibleException.class,
                         NoSuchElementException.class, JavascriptException.class))
                 .pollingEvery(Duration.ofMillis(100L))
@@ -73,11 +72,11 @@ public class SeleniumUtils {
     }
 
     public static WebElement waitFor(By locator) {
-        return waitFor(locator, globalWaitTimeout);
+        return waitFor(locator, Browser.globalWaitTimeout);
     }
 
     public static WebElement waitFor(By locator, long timeout) {
-        return Wait(timeout)
+        return Browser.Wait(timeout)
                 .ignoreAll(ImmutableList.of(StaleElementReferenceException.class, ElementNotVisibleException.class,
                         NoSuchElementException.class, JavascriptException.class))
                 .pollingEvery(Duration.ofMillis(100L))
@@ -85,11 +84,11 @@ public class SeleniumUtils {
     }
 
     public static void waitForElementToHaveFocus(WebElement element) {
-        waitForElementToHaveFocus(element, globalWaitTimeout);
+        waitForElementToHaveFocus(element, Browser.globalWaitTimeout);
     }
 
     public static void waitForElementToHaveFocus(final WebElement element, long timeout) {
-        Wait(timeout)
+        Browser.Wait(timeout)
                 .pollingEvery(Duration.ofMillis(100L))
                 .until((ExpectedCondition<Boolean>) driver -> element.equals(requireNonNull(driver).switchTo().activeElement()));
     }
@@ -160,7 +159,7 @@ public class SeleniumUtils {
     public static boolean acceptAlertIfPresent() {
         try {
             log.info("Waiting on JS-popup");
-            Wait(1).until(ExpectedConditions.alertIsPresent());
+            Browser.Wait(1).until(ExpectedConditions.alertIsPresent());
             closeAlert();
             return true;
         } catch (TimeoutException e) {
@@ -272,7 +271,7 @@ public class SeleniumUtils {
         int attempt = 0;
         boolean executed = false;
         while (attempt < attempts && !executed) {
-            Wait().until((ExpectedCondition<Boolean>) el -> SeleniumUtils.safeIsVisible(we));
+            Browser.Wait().until((ExpectedCondition<Boolean>) el -> SeleniumUtils.safeIsVisible(we));
             try {
                 webElementConsumer.accept(we);
                 executed = true;

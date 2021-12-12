@@ -1,4 +1,4 @@
-package selenium.config;
+package no.sanchezrolfsen.framework.selenium.config;
 
 public interface BrowserConfig {
 

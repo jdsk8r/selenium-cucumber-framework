@@ -4,8 +4,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-import selenium.SeleniumUtils;
-import selenium.config.MockitoExtension;
+import no.sanchezrolfsen.framework.selenium.SeleniumUtils;
+import no.sanchezrolfsen.framework.selenium.config.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;

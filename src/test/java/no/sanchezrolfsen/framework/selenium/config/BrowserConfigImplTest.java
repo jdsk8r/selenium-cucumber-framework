@@ -1,4 +1,4 @@
-package selenium.config;
+package no.sanchezrolfsen.framework.selenium.config;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,9 +1,9 @@
-package selenium.elements;
+package no.sanchezrolfsen.framework.selenium.elements;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import selenium.Browser;
+import no.sanchezrolfsen.framework.selenium.Browser;
 
 import java.security.InvalidParameterException;
 
