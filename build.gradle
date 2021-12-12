@@ -1,9 +1,11 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'signing'
+    id 'java-library'
 }
 
-group 'diego.selenium.framework'
+group 'no.sanchezrolfsen.framework'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -46,13 +48,49 @@ test {
     useJUnitPlatform()
 }
 
+java {
+    withSourcesJar()
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'diego.selenium.framework'
+            groupId = 'no.sanchezrolfsen.framework'
+            artifactId = 'selenium'
             version = '1.0-SNAPSHOT'
 
             from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+                pom {
+                    name = 'Selenium 4 Framework with Cucumber'
+                    description = 'Selenium 4 Framework with cucumber 7'
+                    url = 'https://github.com/jdsk8r/selenium-cucumber-framework'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'diego'
+                            name = 'Diego Sanchez-Rolfsen'
+                            email = 'diego@sanchezrolfsen.no'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:https://github.com/jdsk8r/selenium-cucumber-framework.git'
+                        developerConnection = 'scm:git:git@github.com:jdsk8r/selenium-cucumber-framework.git'
+                        url = 'https://github.com/jdsk8r/selenium-cucumber-framework'
+                    }
+                }
+            }
         }
     }
 }
