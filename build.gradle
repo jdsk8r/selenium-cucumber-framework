@@ -28,6 +28,7 @@ dependencies {
     implementation "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
     implementation "org.seleniumhq.selenium:selenium-remote-driver:$seleniumVersion"
     implementation "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+    implementation "org.seleniumhq.selenium:selenium-java:$seleniumVersion"
     implementation "io.cucumber:cucumber-core:$cucumberVersion"
     implementation "io.cucumber:cucumber-java:$cucumberVersion"
     implementation "io.cucumber:cucumber-java8:$cucumberVersion"

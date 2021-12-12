@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 @Slf4j
 public abstract class AbstractHooks {
-    public static final boolean runBeforeAll = true;
+    public static boolean runBeforeAll = true;
     public static final boolean exitHard = true;
     public static boolean exitTestRun = false;
 
