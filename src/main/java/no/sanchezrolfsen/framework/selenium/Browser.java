@@ -38,6 +38,11 @@ public class Browser {
 
     }
 
+    /**
+     * Method to initializate the browser driver
+     * @param browserConfig
+     * @throws MalformedURLException
+     */
     public static void init(BrowserConfig browserConfig) throws MalformedURLException {
         String seleniumGridUrl = browserConfig.getSeleniumGridAddress();
         if (StringUtils.isNotBlank(seleniumGridUrl)) {
@@ -62,6 +67,10 @@ public class Browser {
         setBrowserTimeouts(DEFAULT_SCRIPT_TIMEOUT, DEFAULT_IMPLICIT_WAIT, DEFAULT_WAIT_TIMEOUT);
     }
 
+    /**
+     * Method to create a local browser
+     * @param browser
+     */
     private static void createLocalBrowser(BrowserType browser) {
         switch (browser) {
             case CHROME -> {
@@ -89,6 +98,11 @@ public class Browser {
         }
     }
 
+    /**
+     * Method to create external browser (grid)
+     * @param browser
+     * @param seleniumGridUrl
+     */
     private static void createExternalBrowser(BrowserType browser, URL seleniumGridUrl) {
         useRemoteDriver = true;
         RemoteWebDriver remoteWebDriver;
@@ -108,6 +122,12 @@ public class Browser {
         driver = remoteWebDriver;
     }
 
+    /**
+     * Method to setup browser timeouts
+     * @param scriptTimeout
+     * @param implicitWait
+     * @param waitTimeout
+     */
     public static void setBrowserTimeouts(int scriptTimeout, int implicitWait, int waitTimeout) {
         if (driver == null) {
             throw new NullPointerException("Browser.init() must be run before one can call the driver-instance");
@@ -118,6 +138,9 @@ public class Browser {
         standardWait = new WebDriverWait(driver, Duration.ofSeconds(waitTimeout));
     }
 
+    /**
+     * Method that returns Webdriver, to call this method Browser.init() must be run first
+     */
     public static WebDriver vanillaDriver() {
         if (driver == null) {
             throw new NullPointerException("Browser.init() must be run before one can call the driver-instance");
@@ -125,6 +148,9 @@ public class Browser {
         return driver;
     }
 
+    /**
+     * Method to run javascript on browser when running tests
+     */
     public static JavascriptExecutor jsExecutor() {
         if (jsExecutor == null) {
             WebDriver jsDriver = vanillaDriver();
@@ -133,6 +159,9 @@ public class Browser {
         return jsExecutor;
     }
 
+    /**
+     * Wait method, it waits by default 'waitTimeout' setup on method setBrowserTimeouts()
+     */
     public static WebDriverWait Wait() {
         if (standardWait == null) {
             throw new NullPointerException("StandardWait is not set");
@@ -140,10 +169,17 @@ public class Browser {
         return standardWait;
     }
 
+    /**
+     * Wait method a number of seconds
+     * @param timeOutInSeconds
+     */
     public static WebDriverWait Wait(long timeOutInSeconds) {
         return new WebDriverWait(vanillaDriver(), Duration.ofSeconds(timeOutInSeconds));
     }
 
+    /**
+     * Method to check if the test are running remotely
+     */
     public static boolean isRemoteDriver() {
         return useRemoteDriver;
     }

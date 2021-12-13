@@ -24,6 +24,9 @@ public abstract class AbstractHooks {
 
     public abstract BrowserConfig getBrowserConfig();
 
+    /**
+     * method that saves screenshot for a failed scenario
+     */
     public void afterFailedScenario(Scenario scenario) {
         if (scenario.isFailed()) {
             SeleniumUtils.embedScreenshot(scenario);
@@ -35,6 +38,9 @@ public abstract class AbstractHooks {
         }
     }
 
+    /**
+     *method to exit running test
+     */
     public void unexpectedShutdown(String errorMessage) {
         log.warn(errorMessage);
         if (exitHard) Runtime.getRuntime().exit(0);
