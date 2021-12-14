@@ -51,15 +51,13 @@ test {
 
 java {
     withSourcesJar()
+    withJavadocJar()
 }
 
 publishing {
     publications {
-        maven(MavenPublication) {
-            groupId = 'no.sanchezrolfsen.framework'
+        mavenJava(MavenPublication) {
             artifactId = 'selenium'
-            version = '1.0-SNAPSHOT'
-
             from components.java
             versionMapping {
                 usage('java-api') {
@@ -68,30 +66,49 @@ publishing {
                 usage('java-runtime') {
                     fromResolutionResult()
                 }
-                pom {
-                    name = 'Selenium 4 Framework with Cucumber'
-                    description = 'Selenium 4 Framework with cucumber 7'
+            }
+            pom {
+                name = 'Selenium 4 Framework with Cucumber'
+                description = 'Selenium 4 Framework with cucumber 7'
+                url = 'http://framework.sanchezrolfsen.no/'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'diego'
+                        name = 'Diego Sanchez-Rolfsen'
+                        email = 'diego.sanchez-rolfsen@outlook.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/jdsk8r/selenium-cucumber-framework.git'
+                    developerConnection = 'scm:git@github.com:jdsk8r/selenium-cucumber-framework.git'
                     url = 'https://github.com/jdsk8r/selenium-cucumber-framework'
-                    licenses {
-                        license {
-                            name = 'The Apache License, Version 2.0'
-                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id = 'diego'
-                            name = 'Diego Sanchez-Rolfsen'
-                            email = 'diego@sanchezrolfsen.no'
-                        }
-                    }
-                    scm {
-                        connection = 'scm:git:https://github.com/jdsk8r/selenium-cucumber-framework.git'
-                        developerConnection = 'scm:git:git@github.com:jdsk8r/selenium-cucumber-framework.git'
-                        url = 'https://github.com/jdsk8r/selenium-cucumber-framework'
-                    }
                 }
             }
         }
+    }
+    repositories {
+        maven {
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
+            def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
+            url = version.endsWith('SNAPSHOT') ? 'https://s01.oss.sonatype.org/content/repositories/snapshots/' : 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
     }
 }
