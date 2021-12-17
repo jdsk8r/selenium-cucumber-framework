@@ -1,10 +1,11 @@
+package no.sanchezrolfsen.framework.selenium;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-import no.sanchezrolfsen.framework.selenium.SeleniumUtils;
 import no.sanchezrolfsen.framework.selenium.config.MockitoExtension;
 
 import java.util.Arrays;
@@ -21,6 +22,18 @@ class SeleniumUtilsTest {
     WebElement element1;
     @Mock
     WebElement element2;
+
+    @Test
+    void getDoubleFromInput() {
+        when(element1.getAttribute("value")).thenReturn("999.99");
+        assertThat(SeleniumUtils.getDoubleFromInput(element1)).isEqualTo(999.99);
+    }
+
+    @Test
+    void getIntegerFromInput() {
+        when(element1.getAttribute("value")).thenReturn("1234");
+        assertThat(SeleniumUtils.getIntegerFromInput(element1)).isEqualTo(1234);
+    }
 
     @Test
     void stringListContainsString() {
@@ -59,6 +72,16 @@ class SeleniumUtilsTest {
         Mockito.verify(element1, times(1)).clear();
         when(element2.getAttribute("value")).thenReturn(" ");
         SeleniumUtils.clearInputIfNotBlank(element2);
+        Mockito.verify(element2, times(0)).clear();
+    }
+
+    @Test
+    void clearInputIfNotEqual() {
+        when(element1.getText()).thenReturn("abc");
+        SeleniumUtils.clearInputIfNotEqual(element1, "def");
+        Mockito.verify(element1, times(1)).clear();
+        when(element2.getText()).thenReturn("def");
+        SeleniumUtils.clearInputIfNotEqual(element2, "def");
         Mockito.verify(element2, times(0)).clear();
     }
 

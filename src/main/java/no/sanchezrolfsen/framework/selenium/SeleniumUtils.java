@@ -264,7 +264,7 @@ public class SeleniumUtils {
         }
     }
 
-    private static boolean waitLoop(WebElement we, Consumer<WebElement> webElementConsumer, int waitTime, int attempts) throws InterruptedException {
+    private static boolean waitLoop(WebElement we, Consumer<WebElement> webElementConsumer, int waitTime, int attempts) {
         int attempt = 0;
         boolean executed = false;
         while (attempt < attempts && !executed) {

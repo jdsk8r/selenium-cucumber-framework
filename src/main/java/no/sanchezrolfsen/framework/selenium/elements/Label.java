@@ -10,7 +10,7 @@ import static no.sanchezrolfsen.framework.selenium.SeleniumUtils.safeIsVisible;
 import static no.sanchezrolfsen.framework.selenium.SeleniumUtils.waitFor;
 
 public class Label {
-    final private By labelSelector;
+    final By labelSelector;
 
     public Label(WebElement element) {
         labelSelector = By.cssSelector(format("Label[for='%s']", element.getAttribute("id")));

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Test of browser configuration")
-public class BrowserConfigImplTest {
+class BrowserConfigImplTest {
     @Test
     @DisplayName("Test that the setup is correct for the default constructor")
     void standardParameterEmptyConstructor() {
