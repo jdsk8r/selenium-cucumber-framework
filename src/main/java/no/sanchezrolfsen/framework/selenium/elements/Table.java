@@ -1,7 +1,9 @@
 package no.sanchezrolfsen.framework.selenium.elements;
 
 import lombok.extern.slf4j.Slf4j;
+import no.sanchezrolfsen.framework.selenium.Browser;
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -9,23 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.format;
-import static no.sanchezrolfsen.framework.selenium.Browser.Wait;
 
 @Slf4j
 public class Table {
-    protected final WebElement table;
+    protected final WebElement tableWebElement;
     protected final List<WebElement> rows;
     protected List<WebElement> columns = new ArrayList<>();
 
-    public Table(WebElement table) {
-        Wait().until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("tbody")));
-        this.table = table;
-        rows = table.findElements(By.cssSelector("tbody > tr"));
+    public Table(WebElement tableWebElement) {
+        Browser.pause().until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("tbody")));
+        this.tableWebElement = tableWebElement;
+        rows = tableWebElement.findElements(By.cssSelector("tbody > tr"));
     }
 
     public WebElement getRow(int rowNumber) {
         if (rowNumber < 1 && rowNumber > getNumberOfRows()) {
-            throw new RuntimeException(format("Row-number '%d' must be in the interval 1-%d", rowNumber, getNumberOfRows()));
+            throw new InvalidArgumentException(format("Row-number '%d' must be in the interval 1-%d", rowNumber, getNumberOfRows()));
         }
         return rows.get(rowNumber - 1); //converting rowNumber to arrayIndex
     }

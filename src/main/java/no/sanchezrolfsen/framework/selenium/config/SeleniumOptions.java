@@ -3,7 +3,11 @@ package no.sanchezrolfsen.framework.selenium.config;
 import static java.lang.String.format;
 import static no.sanchezrolfsen.framework.selenium.config.BrowserType.*;
 
-public class SeleniumOptions {
+class SeleniumOptions {
+    private SeleniumOptions(){
+
+    }
+
     public static BrowserType stringToBrowserType(String browserType) throws IllegalArgumentException {
         return switch (browserType.toUpperCase()) {
             case "CHROME" -> CHROME;

@@ -1,6 +1,5 @@
 package no.sanchezrolfsen.framework.selenium;
 
-import com.google.common.collect.ImmutableList;
 import io.cucumber.java.Scenario;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -19,19 +18,16 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static no.sanchezrolfsen.framework.selenium.Browser.Wait;
 import static no.sanchezrolfsen.framework.selenium.TestUtils.doubleFromString;
 import static no.sanchezrolfsen.framework.selenium.TestUtils.integerFromString;
-
 
 @Slf4j
 @UtilityClass
 public class SeleniumUtils {
 
-    public static final int maxAttempts = 4;
-    public static final int waitTime = 1;
+    public static final int MAX_ATTEMPTS = 4;
+    public static final int WAIT_TIME = 1;
 
     public static Double getDoubleFromInput(WebElement el) {
         return doubleFromString(getInputText(el));
@@ -46,8 +42,8 @@ public class SeleniumUtils {
     }
 
     public static WebElement waitForElementToBeClickable(WebElement element, long timeout) {
-        return Browser.Wait(timeout)
-                .ignoreAll(ImmutableList.of(
+        return Browser.pause(timeout)
+                .ignoreAll(List.of(
                         NoSuchElementException.class, JavascriptException.class,
                         StaleElementReferenceException.class))
                 .pollingEvery(Duration.ofMillis(100L))
@@ -64,8 +60,8 @@ public class SeleniumUtils {
     }
 
     public static WebElement waitFor(WebElement element, long timeout) {
-        return Browser.Wait(timeout)
-                .ignoreAll(ImmutableList.of(StaleElementReferenceException.class, ElementNotVisibleException.class,
+        return Browser.pause(timeout)
+                .ignoreAll(List.of(StaleElementReferenceException.class, ElementNotVisibleException.class,
                         NoSuchElementException.class, JavascriptException.class))
                 .pollingEvery(Duration.ofMillis(100L))
                 .until(ExpectedConditions.visibilityOf(element));
@@ -76,8 +72,8 @@ public class SeleniumUtils {
     }
 
     public static WebElement waitFor(By locator, long timeout) {
-        return Browser.Wait(timeout)
-                .ignoreAll(ImmutableList.of(StaleElementReferenceException.class, ElementNotVisibleException.class,
+        return Browser.pause(timeout)
+                .ignoreAll(List.of(StaleElementReferenceException.class, ElementNotVisibleException.class,
                         NoSuchElementException.class, JavascriptException.class))
                 .pollingEvery(Duration.ofMillis(100L))
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -88,7 +84,7 @@ public class SeleniumUtils {
     }
 
     public static void waitForElementToHaveFocus(final WebElement element, long timeout) {
-        Browser.Wait(timeout)
+        Browser.pause(timeout)
                 .pollingEvery(Duration.ofMillis(100L))
                 .until((ExpectedCondition<Boolean>) driver -> element.equals(requireNonNull(driver).switchTo().activeElement()));
     }
@@ -97,7 +93,8 @@ public class SeleniumUtils {
         try {
             Thread.sleep(numberSeconds * 1000L);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e.getMessage());
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -149,7 +146,7 @@ public class SeleniumUtils {
     }
 
     public static List<String> elementToStringList(List<WebElement> elements) {
-        return elements.stream().map(WebElement::getText).collect(toList());
+        return elements.stream().map(WebElement::getText).toList();
     }
 
     public static boolean elementListContainsString(List<WebElement> elements, String str) {
@@ -159,7 +156,7 @@ public class SeleniumUtils {
     public static boolean acceptAlertIfPresent() {
         try {
             log.info("Waiting on JS-popup");
-            Browser.Wait(1).until(ExpectedConditions.alertIsPresent());
+            Browser.pause(1).until(ExpectedConditions.alertIsPresent());
             closeAlert();
             return true;
         } catch (TimeoutException e) {
@@ -241,7 +238,7 @@ public class SeleniumUtils {
         try {
             FileUtils.copyFile(((TakesScreenshot) Browser.vanillaDriver()).getScreenshotAs(OutputType.FILE),
                     new File(filepath, filename));
-            log.info("Screenshot of error saved to {}/{}", filepath, filename);
+            log.info("Screenshot of error from scenario {} saved to {}/{}", scenario.getName(), filepath, filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -260,22 +257,22 @@ public class SeleniumUtils {
         javascriptExecutor.executeScript("arguments[0].scrollIntoView();", webElement);
     }
 
-    public static void safeExecute(WebElement we, Consumer<WebElement> webElementConsumer) {
-        boolean executed = waitLoop(we, webElementConsumer, waitTime, maxAttempts);
+    public static void safeExecute(WebElement we, Consumer<WebElement> webElementConsumer) throws InterruptedException {
+        boolean executed = waitLoop(we, webElementConsumer, WAIT_TIME, MAX_ATTEMPTS);
         if (!executed) {
-            throw new RuntimeException("safeExecute failed");
+            throw new InterruptedException("safeExecute failed");
         }
     }
 
-    private static boolean waitLoop(WebElement we, Consumer<WebElement> webElementConsumer, int waitTime, int attempts) {
+    private static boolean waitLoop(WebElement we, Consumer<WebElement> webElementConsumer, int waitTime, int attempts) throws InterruptedException {
         int attempt = 0;
         boolean executed = false;
         while (attempt < attempts && !executed) {
-            Browser.Wait().until((ExpectedCondition<Boolean>) el -> SeleniumUtils.safeIsVisible(we));
+            Browser.pause().until((ExpectedCondition<Boolean>) el -> SeleniumUtils.safeIsVisible(we));
             try {
                 webElementConsumer.accept(we);
                 executed = true;
-            } catch (ElementNotVisibleException | StaleElementReferenceException | NotFoundException e) {
+            } catch (ElementNotVisibleException | StaleElementReferenceException  | NotFoundException e) {
                 attempt += 1;
                 SeleniumUtils.wait(waitTime);
             }
@@ -283,10 +280,10 @@ public class SeleniumUtils {
         return executed;
     }
 
-    public static void safeExecute(WebElement we, Consumer<WebElement> webElementConsumer, int wait, int attempts) {
+    public static void safeExecute(WebElement we, Consumer<WebElement> webElementConsumer, int wait, int attempts) throws InterruptedException {
         boolean executed = waitLoop(we, webElementConsumer, wait, attempts);
         if (!executed) {
-            throw new RuntimeException("safeExecute failed");
+            throw new InterruptedException("safeExecute failed");
         }
     }
 }

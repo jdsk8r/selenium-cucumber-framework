@@ -11,12 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class SeleniumUtilsTest {
+class SeleniumUtilsTest {
 
     @Mock
     WebElement element1;
@@ -50,15 +49,15 @@ public class SeleniumUtilsTest {
         when(element2.getText()).thenReturn("bcd");
         List<WebElement> elementList = Arrays.asList(element1, element2);
         assertThat(SeleniumUtils.elementListContainsString(elementList, "abc")).isTrue();
-        assertThat(SeleniumUtils.elementListContainsString(elementList, "æøå")).isFalse();
+        assertThat(SeleniumUtils.elementListContainsString(elementList, "trf")).isFalse();
     }
 
     @Test
     void clearOnlyIfNotBlank() {
-        when(element1.getAttribute(eq("value"))).thenReturn("abc");
+        when(element1.getAttribute("value")).thenReturn("abc");
         SeleniumUtils.clearInputIfNotBlank(element1);
         Mockito.verify(element1, times(1)).clear();
-        when(element2.getAttribute(eq("value"))).thenReturn(" ");
+        when(element2.getAttribute("value")).thenReturn(" ");
         SeleniumUtils.clearInputIfNotBlank(element2);
         Mockito.verify(element2, times(0)).clear();
     }
@@ -66,15 +65,15 @@ public class SeleniumUtilsTest {
     @Test
     void getInputText() {
         String expected = "getInputText";
-        when(element1.getAttribute(eq("value"))).thenReturn(expected);
+        when(element1.getAttribute("value")).thenReturn(expected);
         assertThat(SeleniumUtils.getInputText(element1)).isEqualTo(expected);
     }
 
     @Test
     void isInputBlank() {
-        when(element1.getAttribute(eq("value"))).thenReturn("isInputBlank");
+        when(element1.getAttribute("value")).thenReturn("isInputBlank");
         assertThat(SeleniumUtils.isInputBlank(element1)).isFalse();
-        when(element1.getAttribute(eq("value"))).thenReturn(" ");
+        when(element1.getAttribute("value")).thenReturn(" ");
         assertThat(SeleniumUtils.isInputBlank(element1)).isTrue();
     }
 

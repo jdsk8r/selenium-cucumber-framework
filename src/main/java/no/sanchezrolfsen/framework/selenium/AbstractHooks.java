@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public abstract class AbstractHooks {
     public static boolean runBeforeAll = true;
-    public static final boolean exitHard = true;
+    public static final boolean EXIT_HARD = true;
     public static boolean exitTestRun = false;
 
     public void beforeEach() {
@@ -41,9 +41,9 @@ public abstract class AbstractHooks {
     /**
      *method to exit running test
      */
-    public void unexpectedShutdown(String errorMessage) {
+    public synchronized void unexpectedShutdown(String errorMessage) {
         log.warn(errorMessage);
-        if (exitHard) Runtime.getRuntime().exit(0);
+        if (EXIT_HARD) Runtime.getRuntime().exit(0);
         exitTestRun = true;
     }
 }

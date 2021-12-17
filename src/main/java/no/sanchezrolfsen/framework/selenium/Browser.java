@@ -39,9 +39,7 @@ public class Browser {
     }
 
     /**
-     * Method to initializate the browser driver
-     * @param browserConfig
-     * @throws MalformedURLException
+     * Method to initialize the browser driver
      */
     public static void init(BrowserConfig browserConfig) throws MalformedURLException {
         String seleniumGridUrl = browserConfig.getSeleniumGridAddress();
@@ -57,6 +55,7 @@ public class Browser {
                         TimeUnit.SECONDS.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 }
             }
@@ -69,7 +68,6 @@ public class Browser {
 
     /**
      * Method to create a local browser
-     * @param browser
      */
     private static void createLocalBrowser(BrowserType browser) {
         switch (browser) {
@@ -100,8 +98,6 @@ public class Browser {
 
     /**
      * Method to create external browser (grid)
-     * @param browser
-     * @param seleniumGridUrl
      */
     private static void createExternalBrowser(BrowserType browser, URL seleniumGridUrl) {
         useRemoteDriver = true;
@@ -123,10 +119,7 @@ public class Browser {
     }
 
     /**
-     * Method to setup browser timeouts
-     * @param scriptTimeout
-     * @param implicitWait
-     * @param waitTimeout
+     * Method to set up browser timeouts
      */
     public static void setBrowserTimeouts(int scriptTimeout, int implicitWait, int waitTimeout) {
         if (driver == null) {
@@ -139,7 +132,7 @@ public class Browser {
     }
 
     /**
-     * Method that returns Webdriver, to call this method Browser.init() must be run first
+     * Method that returns WebDriver, to call this method Browser.init() must be run first
      */
     public static WebDriver vanillaDriver() {
         if (driver == null) {
@@ -160,9 +153,9 @@ public class Browser {
     }
 
     /**
-     * Wait method, it waits by default 'waitTimeout' setup on method setBrowserTimeouts()
+     * Pause method, it waits by default 'waitTimeout' setup on method setBrowserTimeouts()
      */
-    public static WebDriverWait Wait() {
+    public static WebDriverWait pause() {
         if (standardWait == null) {
             throw new NullPointerException("StandardWait is not set");
         }
@@ -170,10 +163,9 @@ public class Browser {
     }
 
     /**
-     * Wait method a number of seconds
-     * @param timeOutInSeconds
+     * Pause method a number of seconds
      */
-    public static WebDriverWait Wait(long timeOutInSeconds) {
+    public static WebDriverWait pause(long timeOutInSeconds) {
         return new WebDriverWait(vanillaDriver(), Duration.ofSeconds(timeOutInSeconds));
     }
 

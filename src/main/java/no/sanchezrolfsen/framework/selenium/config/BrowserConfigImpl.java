@@ -35,9 +35,9 @@ public class BrowserConfigImpl implements BrowserConfig {
         log.info("==========================================================================");
         log.info("Selenium-configuration");
         log.info("--------------------------------------------------------------------------");
-        log.info("Browsertype:         {}", browserType.name());
+        log.info("Browser type:         {}", browserType.name());
         log.info("Running type:          {}", isRunningRemote() ? "Remote" : "Local");
-        log.info("Print browserlog:   {}", printBrowserLog ? "Yes" : "No");
+        log.info("Print browser log:   {}", printBrowserLog ? "Yes" : "No");
         if (isRunningRemote()) log.info("Selenium Grid-address: {}", seleniumGridAddress);
         log.info("==========================================================================");
     }
