@@ -3,10 +3,12 @@ package no.sanchezrolfsen.framework.selenium.config;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 
-@Data @Slf4j
+@Data
+@Slf4j
 public class BrowserConfigImpl implements BrowserConfig {
 
     private BrowserType browserType;
@@ -15,6 +17,17 @@ public class BrowserConfigImpl implements BrowserConfig {
 
     public BrowserConfigImpl() {
         browserType = BrowserType.CHROME;
+    }
+
+    @Builder(builderMethodName = "with")
+    public static BrowserConfigImpl builder(BrowserType browserType,
+                                            boolean printBrowserLog, String seleniumGridAddress) {
+        BrowserConfigImpl config = new BrowserConfigImpl();
+        config.setSeleniumGridAddress(seleniumGridAddress);
+        config.setPrintBrowserLog(printBrowserLog);
+        if (browserType == null) browserType = BrowserType.CHROME;
+        config.setBrowserType(browserType);
+        return config;
     }
 
     public void setSeleniumGridAddress(String address) {
@@ -40,16 +53,5 @@ public class BrowserConfigImpl implements BrowserConfig {
         log.info("Print browser log:   {}", printBrowserLog ? "Yes" : "No");
         if (isRunningRemote()) log.info("Selenium Grid-address: {}", seleniumGridAddress);
         log.info("==========================================================================");
-    }
-
-    @Builder(builderMethodName = "with")
-    public static BrowserConfigImpl builder(BrowserType browserType,
-                                            boolean printBrowserLog, String seleniumGridAddress) {
-        BrowserConfigImpl config = new BrowserConfigImpl();
-        config.setSeleniumGridAddress(seleniumGridAddress);
-        config.setPrintBrowserLog(printBrowserLog);
-        if (browserType == null) browserType = BrowserType.CHROME;
-        config.setBrowserType(browserType);
-        return config;
     }
 }

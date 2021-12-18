@@ -1,9 +1,9 @@
 package no.sanchezrolfsen.framework.selenium.elements;
 
+import no.sanchezrolfsen.framework.selenium.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import no.sanchezrolfsen.framework.selenium.Browser;
 
 public class Checkbox {
     private final By selector;

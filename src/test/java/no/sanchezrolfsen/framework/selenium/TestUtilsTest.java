@@ -37,13 +37,13 @@ class TestUtilsTest {
 
     @Test
     void formatAsURI() {
-        assertThat(TestUtils.formatAsURI("hostname",8080,"test1",true)).isEqualTo("https://hostname:8080/test1");
-        assertThat(TestUtils.formatAsURI("hostname",8080,"test2",false)).isEqualTo("http://hostname:8080/test2");
+        assertThat(TestUtils.formatAsURI("hostname", 8080, "test1", true)).isEqualTo("https://hostname:8080/test1");
+        assertThat(TestUtils.formatAsURI("hostname", 8080, "test2", false)).isEqualTo("http://hostname:8080/test2");
     }
 
     @Test
     void testFormatAsURI() {
-        assertThat(TestUtils.formatAsURI("localhost",3032,"test2")).isEqualTo("http://localhost:3032/test2");
+        assertThat(TestUtils.formatAsURI("localhost", 3032, "test2")).isEqualTo("http://localhost:3032/test2");
     }
 
     @Test

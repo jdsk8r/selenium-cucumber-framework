@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 import static no.sanchezrolfsen.framework.selenium.TestUtils.doubleFromString;
 import static no.sanchezrolfsen.framework.selenium.TestUtils.integerFromString;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Slf4j
 @UtilityClass
@@ -272,7 +272,7 @@ public class SeleniumUtils {
             try {
                 webElementConsumer.accept(we);
                 executed = true;
-            } catch (ElementNotVisibleException | StaleElementReferenceException  | NotFoundException e) {
+            } catch (ElementNotVisibleException | StaleElementReferenceException | NotFoundException e) {
                 attempt += 1;
                 SeleniumUtils.wait(waitTime);
             }

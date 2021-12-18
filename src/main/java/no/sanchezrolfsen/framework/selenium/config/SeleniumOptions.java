@@ -4,7 +4,7 @@ import static java.lang.String.format;
 import static no.sanchezrolfsen.framework.selenium.config.BrowserType.*;
 
 class SeleniumOptions {
-    private SeleniumOptions(){
+    private SeleniumOptions() {
 
     }
 

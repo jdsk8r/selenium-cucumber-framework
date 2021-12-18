@@ -1,9 +1,9 @@
 package no.sanchezrolfsen.framework.selenium.elements;
 
+import no.sanchezrolfsen.framework.selenium.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import no.sanchezrolfsen.framework.selenium.Browser;
 
 import static java.lang.String.format;
 import static no.sanchezrolfsen.framework.selenium.SeleniumUtils.safeIsVisible;
@@ -41,6 +41,6 @@ public class Label {
     }
 
     private WebDriver getDriver() {
-            return Browser.vanillaDriver();
+        return Browser.vanillaDriver();
     }
 }

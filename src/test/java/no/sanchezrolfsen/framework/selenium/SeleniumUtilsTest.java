@@ -1,12 +1,12 @@
 package no.sanchezrolfsen.framework.selenium;
 
+import no.sanchezrolfsen.framework.selenium.config.MockitoExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-import no.sanchezrolfsen.framework.selenium.config.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;

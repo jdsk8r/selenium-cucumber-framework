@@ -10,8 +10,8 @@ import java.time.format.DateTimeFormatter;
 
 @Slf4j
 public abstract class AbstractHooks {
-    public static boolean runBeforeAll = true;
     public static final boolean EXIT_HARD = true;
+    public static boolean runBeforeAll = true;
     public static boolean exitTestRun = false;
 
     public void beforeEach() {
@@ -39,7 +39,7 @@ public abstract class AbstractHooks {
     }
 
     /**
-     *method to exit running test
+     * method to exit running test
      */
     public synchronized void unexpectedShutdown(String errorMessage) {
         log.warn(errorMessage);

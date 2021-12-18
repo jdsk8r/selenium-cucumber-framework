@@ -48,9 +48,8 @@ public class Browser {
                 try {
                     createExternalBrowser(browserConfig.getBrowserType(), new URL(seleniumGridUrl));
                     break;
-                }
-                catch (org.openqa.selenium.remote.UnreachableBrowserException unreachableBrowserException) {
-                    log.debug(String.format("Didn't manage to start browser against %s on try nr %s. Waiting 10 s",seleniumGridUrl,i));
+                } catch (org.openqa.selenium.remote.UnreachableBrowserException unreachableBrowserException) {
+                    log.debug(String.format("Didn't manage to start browser against %s on try nr %s. Waiting 10 s", seleniumGridUrl, i));
                     try {
                         TimeUnit.SECONDS.sleep(10);
                     } catch (InterruptedException e) {
