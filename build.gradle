@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'no.sanchezrolfsen.framework'
-version '1.2.1'
+version '1.2.2'
 
 repositories {
     mavenCentral()
@@ -15,7 +15,7 @@ repositories {
 ext {
     junit5Version = '5.8.2'
     seleniumVersion = '4.1.1'
-    cucumberVersion = '7.1.0'
+    cucumberVersion = '7.2.3'
     lombokVersion = '1.18.22'
 }
 
@@ -41,7 +41,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
     testImplementation 'org.junit.platform:junit-platform-runner:1.8.2'
-    testImplementation 'org.assertj:assertj-core:3.21.0'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
     testImplementation 'org.mockito:mockito-core:4.2.0'
 }
 
@@ -53,7 +53,7 @@ java {
     withSourcesJar()
     withJavadocJar()
 }
-
+/* used only for publishing
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -80,8 +80,8 @@ publishing {
                 developers {
                     developer {
                         id = 'diego'
-                        name = 'Diego Sanchez-Rolfsen'
-                        email = 'diego.sanchez-rolfsen@outlook.com'
+                        name = 'Diego Sánchez-Rolfsen'
+                        email = 'diego@sanchezrolfsen.no'
                     }
                 }
                 scm {
@@ -109,7 +109,7 @@ publishing {
 signing {
     sign publishing.publications.mavenJava
 }
-
+*/
 
 javadoc {
     if(JavaVersion.current().isJava9Compatible()) {
