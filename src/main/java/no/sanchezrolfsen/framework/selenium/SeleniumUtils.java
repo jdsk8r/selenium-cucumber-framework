@@ -61,7 +61,7 @@ public class SeleniumUtils {
 
     public static WebElement waitFor(WebElement element, long timeout) {
         return Browser.pause(timeout)
-                .ignoreAll(List.of(StaleElementReferenceException.class, ElementNotVisibleException.class,
+                .ignoreAll(List.of(StaleElementReferenceException.class, ElementNotInteractableException.class,
                         NoSuchElementException.class, JavascriptException.class))
                 .pollingEvery(Duration.ofMillis(100L))
                 .until(ExpectedConditions.visibilityOf(element));
@@ -73,7 +73,7 @@ public class SeleniumUtils {
 
     public static WebElement waitFor(By locator, long timeout) {
         return Browser.pause(timeout)
-                .ignoreAll(List.of(StaleElementReferenceException.class, ElementNotVisibleException.class,
+                .ignoreAll(List.of(StaleElementReferenceException.class, ElementNotInteractableException.class,
                         NoSuchElementException.class, JavascriptException.class))
                 .pollingEvery(Duration.ofMillis(100L))
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -196,7 +196,7 @@ public class SeleniumUtils {
     public static boolean safeIsSelected(By by) {
         try {
             return Browser.vanillaDriver().findElement(by).isSelected();
-        } catch (ElementNotVisibleException | NoSuchElementException | StaleElementReferenceException e) {
+        } catch (ElementNotInteractableException | NoSuchElementException | StaleElementReferenceException e) {
             log.debug(e.toString());
             return false;
         }
@@ -205,7 +205,7 @@ public class SeleniumUtils {
     public static boolean safeIsVisible(By by) {
         try {
             return safeIsVisible(Browser.vanillaDriver().findElement(by));
-        } catch (ElementNotVisibleException | StaleElementReferenceException | NotFoundException e) {
+        } catch (ElementNotInteractableException | StaleElementReferenceException | NotFoundException e) {
             return false;
         }
     }
@@ -213,7 +213,7 @@ public class SeleniumUtils {
     public static boolean safeIsVisible(WebElement element) {
         try {
             return !(element.getSize().getHeight() == 0 || element.getSize().getWidth() == 0);
-        } catch (ElementNotVisibleException | StaleElementReferenceException | NotFoundException e) {
+        } catch (ElementNotInteractableException | StaleElementReferenceException | NotFoundException e) {
             log.debug("safeIsVisible: " + e);
             return false;
         }
@@ -222,7 +222,7 @@ public class SeleniumUtils {
     public static boolean safeIsVisibleInside(WebElement parentElement, By by) {
         try {
             return !parentElement.findElement(by).getSize().equals(new Dimension(0, 0));
-        } catch (ElementNotVisibleException | StaleElementReferenceException | NotFoundException e) {
+        } catch (ElementNotInteractableException | StaleElementReferenceException | NotFoundException e) {
             log.debug("safeIsVisible: " + e);
             return false;
         }
@@ -272,7 +272,7 @@ public class SeleniumUtils {
             try {
                 webElementConsumer.accept(we);
                 executed = true;
-            } catch (ElementNotVisibleException | StaleElementReferenceException | NotFoundException e) {
+            } catch (ElementNotInteractableException | StaleElementReferenceException | NotFoundException e) {
                 attempt += 1;
                 SeleniumUtils.wait(waitTime);
             }
