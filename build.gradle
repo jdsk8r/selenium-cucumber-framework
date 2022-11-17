@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'no.sanchezrolfsen.framework'
-version '1.2.3'
+version '1.2.4'
 
 repositories {
     mavenCentral()
@@ -14,7 +14,7 @@ repositories {
 
 ext {
     junit5Version = '5.9.0'
-    seleniumVersion = '4.5.0'
+    seleniumVersion = '4.6.0'
     cucumberVersion = '7.8.1'
     lombokVersion = '1.18.24'
 }
