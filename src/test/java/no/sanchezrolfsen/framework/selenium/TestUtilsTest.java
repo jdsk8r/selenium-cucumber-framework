@@ -60,7 +60,7 @@ class TestUtilsTest {
     void intToMonth() {
         assertThat(TestUtils.intToMonth(6, Locale.US)).isEqualTo("June");
         assertThat(TestUtils.intToMonth(10, Locale.US)).isEqualTo("October");
-        assertThat(TestUtils.intToMonth(6, new Locale("nb"))).isEqualTo("juni");
-        assertThat(TestUtils.intToMonth(10, new Locale("nb"))).isEqualTo("oktober");
+        assertThat(TestUtils.intToMonth(6, Locale.of("nb"))).isEqualTo("juni");
+        assertThat(TestUtils.intToMonth(10, Locale.of("nb"))).isEqualTo("oktober");
     }
 }

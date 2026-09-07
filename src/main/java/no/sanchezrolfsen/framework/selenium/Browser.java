@@ -16,6 +16,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.security.InvalidParameterException;
 import java.time.Duration;
@@ -46,7 +47,7 @@ public class Browser {
         if (StringUtils.isNotBlank(seleniumGridUrl)) {
             for (int i = 0; i <= 5; i++) {
                 try {
-                    createExternalBrowser(browserConfig.getBrowserType(), new URL(seleniumGridUrl));
+                    createExternalBrowser(browserConfig.getBrowserType(), URI.create(seleniumGridUrl).toURL());
                     break;
                 } catch (org.openqa.selenium.remote.UnreachableBrowserException unreachableBrowserException) {
                     log.debug(String.format("Didn't manage to start browser against %s on try nr %s. Waiting 10 s", seleniumGridUrl, i));
@@ -77,7 +78,7 @@ public class Browser {
             }
             case CHROME_HEADLESS -> {
                 final ChromeOptions chromeOptions2 = new ChromeOptions();
-                chromeOptions2.setHeadless(true);
+                chromeOptions2.addArguments("--headless=new");
                 driver = new ChromeDriver(chromeOptions2);
                 log.debug("Chrome Headless selected as the desired browser.");
             }
@@ -87,7 +88,7 @@ public class Browser {
             }
             case FIREFOX_HEADLESS -> {
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.setHeadless(true);
+                firefoxOptions.addArguments("-headless");
                 driver = new FirefoxDriver(firefoxOptions);
                 log.debug("Firefox Headless selected as the desired browser.");
             }
