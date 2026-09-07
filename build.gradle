@@ -1,12 +1,12 @@
 plugins {
-    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '2.4.20'
     id 'maven-publish'
     id 'signing'
     id 'java-library'
 }
 
 group = 'no.sanchezrolfsen.framework'
-version = '1.2.5'
+version = '1.2.6'
 
 repositories {
     mavenCentral()
@@ -16,7 +16,6 @@ ext {
     junit5Version = '5.14.4'
     seleniumVersion = '4.48.0'
     cucumberVersion = '7.34.8'
-    lombokVersion = '1.18.48'
 }
 
 dependencies {
@@ -34,16 +33,13 @@ dependencies {
     implementation "io.cucumber:cucumber-java8:$cucumberVersion"
     implementation "io.cucumber:cucumber-junit:$cucumberVersion"
     implementation 'org.slf4j:slf4j-api:2.0.19'
-    compileOnly "org.projectlombok:lombok:$lombokVersion"
-    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
-    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
     implementation 'org.apache.commons:commons-lang3:3.20.0'
     implementation 'commons-io:commons-io:2.22.0'
     implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
     testImplementation 'org.junit.platform:junit-platform-runner:1.14.4'
     testImplementation 'org.assertj:assertj-core:3.27.7'
     testImplementation 'org.mockito:mockito-core:5.23.0'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:5.4.0'
 }
 
 test {
@@ -54,6 +50,7 @@ java {
     withSourcesJar()
     withJavadocJar()
 }
+
 /* used only for publishing
 publishing {
     publications {
