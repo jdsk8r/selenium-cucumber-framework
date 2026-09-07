@@ -1,8 +1,6 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.4.20'
-    id 'maven-publish'
-    id 'signing'
-    id 'java-library'
+    id 'com.vanniktech.maven.publish' version '0.37.0'
 }
 
 group = 'no.sanchezrolfsen.framework'
@@ -46,71 +44,56 @@ test {
     useJUnitPlatform()
 }
 
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
+// Publishing to Maven Central via the Central Publisher Portal (https://central.sonatype.com).
+//
+// Credentials and signing are read from Gradle properties, never put them in this file.
+// Populate them either in ~/.gradle/gradle.properties or as environment variables when
+// running on CI:
+//
+//   mavenCentralUsername=<token username, from https://central.sonatype.com/usertoken>
+//   mavenCentralPassword=<token password, from https://central.sonatype.com/usertoken>
+//   signing.keyId=<last 8 chars of your GPG key id>
+//   signing.password=<GPG key password>
+//   signing.secretKeyRingFile=<path to your secring.gpg>
+//
+// or, for CI/environment-variable based configuration:
+//
+//   ORG_GRADLE_PROJECT_mavenCentralUsername=<token username>
+//   ORG_GRADLE_PROJECT_mavenCentralPassword=<token password>
+//   ORG_GRADLE_PROJECT_signingInMemoryKey=<ascii-armored GPG private key>
+//   ORG_GRADLE_PROJECT_signingInMemoryKeyId=<key id, only if key has no password>
+//   ORG_GRADLE_PROJECT_signingInMemoryKeyPassword=<GPG key password>
+//
+// Publish with:
+//   ./gradlew publishToMavenCentral            (uploads, then publish manually on the Central Portal)
+//   ./gradlew publishAndReleaseToMavenCentral   (uploads and releases automatically)
+mavenPublishing {
+    coordinates(group as String, 'selenium', version as String)
 
-/* used only for publishing
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId = 'selenium'
-            from components.java
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
-            pom {
-                name = 'Selenium 4 Framework with Cucumber'
-                description = 'Selenium 4 Framework with cucumber 7'
-                url = 'http://framework.sanchezrolfsen.no/'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'https://github.com/jdsk8r/selenium-cucumber-framework/blob/master/LICENSE'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'diego'
-                        name = 'Diego Sánchez-Rolfsen'
-                        email = 'diego@sanchezrolfsen.no'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:https://github.com/jdsk8r/selenium-cucumber-framework.git'
-                    developerConnection = 'scm:git@github.com:jdsk8r/selenium-cucumber-framework.git'
-                    url = 'https://github.com/jdsk8r/selenium-cucumber-framework'
-                }
+    publishToMavenCentral()
+    signAllPublications()
+
+    pom {
+        name = 'Selenium 4 Framework with Cucumber'
+        description = 'Selenium 4 Framework with cucumber 7, for Java or Kotlin'
+        url = 'http://framework.sanchezrolfsen.no/'
+        licenses {
+            license {
+                name = 'The Apache License, Version 2.0'
+                url = 'https://github.com/jdsk8r/selenium-cucumber-framework/blob/master/LICENSE'
             }
         }
-    }
-    repositories {
-        maven {
-            // change URLs to point to your repos, e.g. http://my.org/repo
-            def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
-            def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
-            url = version.endsWith('SNAPSHOT') ? 'https://s01.oss.sonatype.org/content/repositories/snapshots/' : 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
-            credentials {
-                username "$ossrhUsername"
-                password "$ossrhPassword"
+        developers {
+            developer {
+                id = 'diego'
+                name = 'Diego Sánchez-Rolfsen'
+                email = 'diego@sanchezrolfsen.no'
             }
         }
-    }
-}
-
-signing {
-    sign publishing.publications.mavenJava
-}
-*/
-
-javadoc {
-    if(JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
+        scm {
+            connection = 'scm:git:https://github.com/jdsk8r/selenium-cucumber-framework.git'
+            developerConnection = 'scm:git@github.com:jdsk8r/selenium-cucumber-framework.git'
+            url = 'https://github.com/jdsk8r/selenium-cucumber-framework'
+        }
     }
 }
