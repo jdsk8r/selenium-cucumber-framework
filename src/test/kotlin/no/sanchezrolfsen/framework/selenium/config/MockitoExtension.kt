@@ -22,15 +22,17 @@ class MockitoExtension : TestInstancePostProcessor, ParameterResolver {
     override fun resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Any =
         getMock(parameterContext.parameter, extensionContext)
 
-    private fun getMock(parameter: Parameter, extensionContext: ExtensionContext): Any {
-        val mockType = parameter.type
+    private fun getMock(parameter: Parameter, extensionContext: ExtensionContext): Any =
+        getMock(parameter, extensionContext, parameter.type)
+
+    private fun <T : Any> getMock(parameter: Parameter, extensionContext: ExtensionContext, mockType: Class<T>): T {
         val mocks = extensionContext.getStore(Namespace.create(MockitoExtension::class.java, mockType))
         val mockName = getMockName(parameter)
 
         return if (mockName != null) {
-            mocks.getOrComputeIfAbsent(mockName) { mock(mockType, mockName) }
+            mocks.computeIfAbsent(mockName, { mock(mockType, mockName) }, mockType)
         } else {
-            mocks.getOrComputeIfAbsent(mockType.canonicalName) { mock(mockType) }
+            mocks.computeIfAbsent(mockType.canonicalName, { mock(mockType) }, mockType)
         }
     }
 
