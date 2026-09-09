@@ -45,28 +45,8 @@ test {
 }
 
 // Publishing to Maven Central via the Central Publisher Portal (https://central.sonatype.com).
-//
-// Credentials and signing are read from Gradle properties, never put them in this file.
-// Populate them either in ~/.gradle/gradle.properties or as environment variables when
-// running on CI:
-//
-//   mavenCentralUsername=<token username, from https://central.sonatype.com/usertoken>
-//   mavenCentralPassword=<token password, from https://central.sonatype.com/usertoken>
-//   signing.keyId=<last 8 chars of your GPG key id>
-//   signing.password=<GPG key password>
-//   signing.secretKeyRingFile=<path to your secring.gpg>
-//
-// or, for CI/environment-variable based configuration:
-//
-//   ORG_GRADLE_PROJECT_mavenCentralUsername=<token username>
-//   ORG_GRADLE_PROJECT_mavenCentralPassword=<token password>
-//   ORG_GRADLE_PROJECT_signingInMemoryKey=<ascii-armored GPG private key>
-//   ORG_GRADLE_PROJECT_signingInMemoryKeyId=<key id, only if key has no password>
-//   ORG_GRADLE_PROJECT_signingInMemoryKeyPassword=<GPG key password>
-//
-// Publish with:
-//   ./gradlew publishToMavenCentral            (uploads, then publish manually on the Central Portal)
-//   ./gradlew publishAndReleaseToMavenCentral   (uploads and releases automatically)
+// Handled automatically by .github/workflows/publish.yml whenever a GitHub Release is published.
+// Credentials and signing keys are supplied there via repository secrets, never put them in this file.
 mavenPublishing {
     coordinates(group as String, 'selenium', version as String)
 
